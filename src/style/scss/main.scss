@@ -32,6 +32,18 @@ html.light {
   transition: .3s ease;
 }
 
+@mixin mobile {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin smaller-mobile {
+  @media (max-width: 320px) {
+    @content;
+  }
+}
+
 *::before,
 *::after,
 * {
@@ -62,6 +74,14 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: 0px 5px 30px var(--box-shadow-calc);
+  @include mobile {
+    width: 92%;
+    height: 95dvh;
+    margin: 0 auto;
+  }
+  @include smaller-mobile {
+    width: 95%;
+  }
 }
 
 .header-calc-theme-display {
@@ -117,6 +137,9 @@ body {
     font-size: 60px;
     padding: 0px 15px;
     padding-bottom: 8px;
+    @include mobile {
+      font-size: 50px;
+    }
     &:focus {
       outline: 0;
     }
@@ -128,12 +151,13 @@ body {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 8px;
   padding: 0px 10px;
+  @include mobile {
+    gap: 0px;
+    margin-bottom: 0px;
+  }
   .calc-btn {
     height: 100%;
-    padding: 10px;
     width: 100%;
     border-radius: 10px;
     font-size: 38px;
