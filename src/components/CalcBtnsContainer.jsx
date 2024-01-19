@@ -20,15 +20,83 @@ export function MainCalc() {
 		}
 	};
 
+	useEffect(() => {
+		const handleBtnFunctionOnKeydown = e => {
+			switch (e.key) {
+				case '0':
+					setInputValue(prevState => prevState + '0');
+					break;
+				case '1':
+					setInputValue(prevState => prevState + '1');
+					break;
+				case '2':
+					setInputValue(prevState => prevState + '2');
+					break;
+				case '3':
+					setInputValue(prevState => prevState + '3');
+					break;
+				case '4':
+					setInputValue(prevState => prevState + '4');
+					break;
+				case '5':
+					setInputValue(prevState => prevState + '5');
+					break;
+				case '6':
+					setInputValue(prevState => prevState + '6');
+					break;
+				case '7':
+					setInputValue(prevState => prevState + '7');
+					break;
+				case '8':
+					setInputValue(prevState => prevState + '8');
+					break;
+				case '9':
+					setInputValue(prevState => prevState + '9');
+					break;
+				case '*':
+					setInputValue(prevState => prevState + '*');
+					break;
+				case '/':
+					setInputValue(prevState => prevState + '/');
+					break;
+				case '%':
+					setInputValue(prevState => prevState + '%');
+					break;
+				case '+':
+					setInputValue(prevState => prevState + '+');
+					break;
+				case '.':
+					setInputValue(prevState => prevState + '.');
+					break;
+				case '-':
+					setInputValue(prevState => prevState + '-');
+					break;
+				case 'Enter':
+					evalResults();
+					break;
+				case 'Backspace':
+					setInputValue(prevState => prevState.slice(0, -1));
+					break;
+				default:
+					break;
+			}
+		};
+
+		document.addEventListener('keydown', handleBtnFunctionOnKeydown);
+
+		return () => {
+			document.removeEventListener('keydown', handleBtnFunctionOnKeydown);
+		};
+	});
+
 	const evalResults = () => {
 		try {
 			// const decimalPart = inputValue.split('.')[1];
 			const result = eval(inputValue);
 
 			if (Number.isFinite(result)) {
-				setInputValue(prevState => eval(prevState).toFixed(2))
+				setInputValue(prevState => eval(prevState).toFixed(2));
 			}
-
 		} catch (error) {
 			console.error(error);
 			setInputValue('');
@@ -39,7 +107,7 @@ export function MainCalc() {
 		const inputEl = document.querySelector('.display-calc-input');
 
 		inputEl.value = inputValue;
-	});
+	}, [inputValue]);
 
 	return (
 		<>
@@ -91,7 +159,7 @@ export function MainCalc() {
 			<button className='calc-btn reds' onClick={() => handleBtnFunction('%')}>
 				%
 			</button>
-			<button className='calc-btn' data-value="0" onClick={() => handleBtnFunction('0')}>
+			<button className='calc-btn' data-value='0' onClick={() => handleBtnFunction('0')}>
 				0
 			</button>
 			<button className='calc-btn' onClick={() => handleBtnFunction('.')}>
@@ -112,14 +180,6 @@ export function DisplayCalc() {
 				className='display-calc-input cursor-default'
 				maxLength={11}
 				readOnly
-				// onKeyDown={e => {
-				//   const allowedKeys = ['Backspace', '0', '1', '2',
-				//     '3', '4', '5', '6', '7', '8', '9', 'ArrowLeft', 'ArrowRight',
-				//     '*', '/', '.', '-', '+', '='
-				//   ];
-
-				//   !allowedKeys.includes(e.key) ? e.preventDefault() : '';
-				// }}
 			/>
 		</>
 	);
