@@ -132,7 +132,6 @@ export function MainCalc() {
 		<>
 			<button
 				className='calc-btn greens'
-				tabIndex={-1}
 				data-value='Backspace'
 				onClick={() => handleBtnFunction('Backspace')}>
 				←
