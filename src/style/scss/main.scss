@@ -9,10 +9,11 @@ html.dark {
   --calc-btn-bg: #282B34;
   --text: #FBFFFF;
   --light-mode-key: #ffffff13;
-  --theme-icons: white;
+  --theme-icons: #fff;
   --theme-btn-active: #2a2c34;
   --theme-not-active: #44464d;
   --theme-btn-not-active: #25262a;
+  --cookies-div: #eee;
   
   transition: .3s ease;
 }
@@ -25,11 +26,12 @@ html.light {
   --reds: #B25758;
   --calc-btn-bg: #eeeeee;
   --text: #343333;
-  --light-mode-key: #1f1f1f39;
+  --light-mode-key: #1f1f1f13;
   --theme-icons: rgb(70, 70, 70);
   --theme-btn-active: #e3e3e4;
   --theme-not-active: #979797;
   --theme-btn-not-active: #c6c6c6;
+  --cookies-div: #eee;
   
   transition: .3s ease;
 }
@@ -66,6 +68,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .calc-wrapper {
@@ -180,6 +183,40 @@ body {
     }
     &[data-value="0"] {
       grid-column: span 2;
+    }
+  }
+}
+
+.cookies-div {
+  width: max-content;
+  height: max-content;
+  border-radius: 20px;
+  position: absolute;
+  bottom: 30px;
+  right: 100px;
+  background-color: var(--cookies-div);
+  padding: 20px;
+  font-size: 15px;
+  &:not(.active) {
+    display: none;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  span a {
+    color: var(--reds);
+  }
+  section {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    button {
+      background-color: var(--reds);
+      border-radius: 5px;
+      color: white;
+      padding: 5px 8px;
     }
   }
 }

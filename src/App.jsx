@@ -1,5 +1,6 @@
 import { SwitchTheme } from './components/SwitchTheme';
 import { MainCalc } from './components/CalcBtnsContainer';
+import { GetCookie } from './components/GetCookie';
 import './style/css/main.css';
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
 					<MainCalc />
 				</main>
 			</div>
+			<GetCookie />
 		</>
 	);
 }
