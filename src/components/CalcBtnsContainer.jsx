@@ -95,9 +95,9 @@ export function MainCalc() {
 		inputEl.style.color = 'var(--reds)';
 
 		const clearError = e => {
-			const isDigit = /[0-9x\/%+\-.]/.test(e.key);
+			const isDigitOrSpecial = /[0-9x\/%+\-.]/.test(e.key);
 
-			if (isDigit) setInputValue(e.key);
+			if (isDigitOrSpecial) setInputValue(e.key);
 			else setInputValue('');
 
 			inputEl.style.color = '';
@@ -137,58 +137,58 @@ export function MainCalc() {
 				onClick={() => handleBtnFunction('Backspace')}>
 				←
 			</button>
-			<button className='calc-btn greens' tabIndex={-1} data-value='Reset' onClick={() => handleBtnFunction('reset')}>
+			<button className='calc-btn greens' data-value='Reset' onClick={() => handleBtnFunction('reset')}>
 				C
 			</button>
-			<button className='calc-btn reds' tabIndex={-1} data-value='/' onClick={() => handleBtnFunction('/')}>
+			<button className='calc-btn reds' data-value='/' onClick={() => handleBtnFunction('/')}>
 				/
 			</button>
-			<button className='calc-btn reds' tabIndex={-1} data-value='x' onClick={() => handleBtnFunction('x')}>
+			<button className='calc-btn reds' data-value='x' onClick={() => handleBtnFunction('x')}>
 				x
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='7' onClick={() => handleBtnFunction('7')}>
+			<button className='calc-btn' data-value='7' onClick={() => handleBtnFunction('7')}>
 				7
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='8' onClick={() => handleBtnFunction('8')}>
+			<button className='calc-btn' data-value='8' onClick={() => handleBtnFunction('8')}>
 				8
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='9' onClick={() => handleBtnFunction('9')}>
+			<button className='calc-btn' data-value='9' onClick={() => handleBtnFunction('9')}>
 				9
 			</button>
-			<button className='calc-btn reds' tabIndex={-1} data-value='-' onClick={() => handleBtnFunction('-')}>
+			<button className='calc-btn reds' data-value='-' onClick={() => handleBtnFunction('-')}>
 				-
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='4' onClick={() => handleBtnFunction('4')}>
+			<button className='calc-btn' data-value='4' onClick={() => handleBtnFunction('4')}>
 				4
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='5' onClick={() => handleBtnFunction('5')}>
+			<button className='calc-btn' data-value='5' onClick={() => handleBtnFunction('5')}>
 				5
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='6' onClick={() => handleBtnFunction('6')}>
+			<button className='calc-btn' data-value='6' onClick={() => handleBtnFunction('6')}>
 				6
 			</button>
-			<button className='calc-btn reds' tabIndex={-1} data-value='+' onClick={() => handleBtnFunction('+')}>
+			<button className='calc-btn reds' data-value='+' onClick={() => handleBtnFunction('+')}>
 				+
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='1' onClick={() => handleBtnFunction('1')}>
+			<button className='calc-btn' data-value='1' onClick={() => handleBtnFunction('1')}>
 				1
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='2' onClick={() => handleBtnFunction('2')}>
+			<button className='calc-btn' data-value='2' onClick={() => handleBtnFunction('2')}>
 				2
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='3' onClick={() => handleBtnFunction('3')}>
+			<button className='calc-btn' data-value='3' onClick={() => handleBtnFunction('3')}>
 				3
 			</button>
-			<button className='calc-btn reds' tabIndex={-1} data-value='%' onClick={() => handleBtnFunction('%')}>
+			<button className='calc-btn reds' data-value='%' onClick={() => handleBtnFunction('%')}>
 				%
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='0' onClick={() => handleBtnFunction('0')}>
+			<button className='calc-btn' data-value='0' onClick={() => handleBtnFunction('0')}>
 				0
 			</button>
-			<button className='calc-btn' tabIndex={-1} data-value='.' onClick={() => handleBtnFunction('.')}>
+			<button className='calc-btn' data-value='.' onClick={() => handleBtnFunction('.')}>
 				.
 			</button>
-			<button className='calc-btn reds' tabIndex={-1} data-value='Enter' onClick={() => handleBtnFunction('Enter')}>
+			<button className='calc-btn reds' data-value='Enter' onClick={() => handleBtnFunction('Enter')}>
 				=
 			</button>
 		</>
