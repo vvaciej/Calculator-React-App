@@ -7,6 +7,7 @@ html.dark {
   --reds: #B25758;
   --calc-btn-bg: #282B34;
   --text: #FBFFFF;
+  --light-mode-key: #ffffff13;
   --theme-icons: white;
   --theme-btn-active: #2a2c34;
   --theme-not-active: #44464d;
@@ -22,6 +23,7 @@ html.light {
   --reds: #B25758;
   --calc-btn-bg: #eeeeee;
   --text: #343333;
+  --light-mode-key: #1f1f1f39;
   --theme-icons: rgb(70, 70, 70);
   --theme-btn-active: #e3e3e4;
   --theme-not-active: #979797;
@@ -140,13 +142,7 @@ body {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 0px 10px;
-}
-@media (max-width: 480px) {
-  .main-calc {
-    gap: 0px;
-    margin-bottom: 0px;
-  }
+  padding: 10px 10px;
 }
 .main-calc .calc-btn {
   height: 100%;
@@ -155,14 +151,14 @@ body {
   font-size: 38px;
   color: var(--text);
   user-select: none;
-  transition: opacity 0.2s ease;
+  transition: background-color 0.2s ease;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main-calc .calc-btn:hover {
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
+  background-color: var(--light-mode-key);
+  transition: 0.2s ease;
 }
 .main-calc .calc-btn.greens {
   color: var(--greens);
