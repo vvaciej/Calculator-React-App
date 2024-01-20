@@ -1,17 +1,30 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const SwitchTheme = () => {
 	const htmlEl = document.querySelector('html');
-	const [isSwitched, setIsSwitched] = useState(false);
+	const [isSwitched, setIsSwitched] = useState('false');
 
 	const switchTheme = () => {
-		htmlEl.classList.toggle('light');
-		htmlEl.classList.toggle('dark');
-
-		setIsSwitched(prevState => !prevState);
+		htmlEl.classList.toggle('dark', !isSwitched);
+		htmlEl.classList.toggle('light', isSwitched);
+		
+		const newTheme = !isSwitched;
+		setIsSwitched(newTheme);
+		
+		localStorage.setItem('whatTheme', String(newTheme));
 	};
+
+  useEffect(() => {
+		const whatTheme = localStorage.getItem('whatTheme');
+		const shouldSwitch = whatTheme === 'true';
+
+		htmlEl.classList.toggle('light', shouldSwitch);
+		htmlEl.classList.toggle('dark', !shouldSwitch);
+
+		setIsSwitched(shouldSwitch);
+	}, [isSwitched]);
 
 	const switchClass = `switch-theme-container ${isSwitched ? 'switched' : ''}`;
 
