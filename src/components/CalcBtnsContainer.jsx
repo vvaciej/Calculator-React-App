@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export function MainCalc() {
 	const allBtns = document.querySelectorAll('.calc-btn');
@@ -123,19 +123,6 @@ export function MainCalc() {
 			document.removeEventListener('keydown', handleBtnFunctionOnKeydown);
 		}
 	})
-
-	useLayoutEffect(() => {
-		const calcWrapper = document.querySelector('.calc-wrapper');
-
-    const smoothCalcAppearOnLoad = setTimeout(() => {
-			calcWrapper.style.right = '0px';
-			calcWrapper.style.transition = 'right .2s ease-out';
-		}, 0);
-
-		return () => {
-			clearTimeout(smoothCalcAppearOnLoad);
-		};
-	}, [])
 
 	return (
 		<>
