@@ -9,7 +9,12 @@ export default function App() {
 			<div className='calc-wrapper'>
 				<header className='header-calc-theme-display'>
 					<SwitchTheme />
-					<input type='text' className='display-calc-input cursor-default' maxLength={11} readOnly />
+					<input 
+						className='display-calc-input cursor-default' 
+						type='text' 
+						maxLength={11} 
+						readOnly
+					/>
 				</header>
 				<main className='main-calc'>
 					<MainCalc />

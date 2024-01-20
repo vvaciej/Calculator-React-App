@@ -84,14 +84,21 @@ export function MainCalc() {
 
   const handleCalcError = () => {
 		const inputEl = document.querySelector('.display-calc-input');
-
+		
 		setInputValue('Error');
 		inputEl.style.color = 'var(--reds)';
+		
+		const clearError = (e) => {
+			const isDigit = /[0-9x\/%+\-.]/.test(e.key);
 
-		setTimeout(() => {
-			setInputValue('');
+			if (isDigit) setInputValue(e.key);
+			else setInputValue('');
+
 			inputEl.style.color = '';
-		}, 500);
+			document.removeEventListener('keydown', clearError);
+		};
+
+		document.addEventListener('keydown', clearError);
 	};
 
 	useEffect(() => {
