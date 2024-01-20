@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export function MainCalc() {
+	const allBtns = document.querySelectorAll('.calc-btn');
 	const [inputValue, setInputValue] = useState('');
 
 	const handleBtnFunction = btnValue => {
@@ -51,8 +52,6 @@ export function MainCalc() {
 	};
 
 	const lightOnKey = key => {
-		const allBtns = document.querySelectorAll('.calc-btn');
-
 		allBtns.forEach(btn => {
 			const btnValue = btn.getAttribute('data-value');
 
@@ -96,8 +95,15 @@ export function MainCalc() {
 
 			inputEl.style.color = '';
 			document.removeEventListener('keydown', clearError);
+			
+			allBtns.forEach(btn => {
+				btn.removeEventListener('click', clearError);
+			});
 		};
 
+		allBtns.forEach(btn => {
+			btn.addEventListener('click', clearError);
+		})
 		document.addEventListener('keydown', clearError);
 	};
 
@@ -117,7 +123,7 @@ export function MainCalc() {
 
 	return (
 		<>
-			<button className='calc-btn greens' data-value='Backspace' onClick={() => handleBtnFunction('del')}>
+			<button className='calc-btn greens' data-value='Backspace' onClick={() => handleBtnFunction('Backspace')}>
 				←
 			</button>
 			<button className='calc-btn greens' data-value='Reset' onClick={() => handleBtnFunction('reset')}>

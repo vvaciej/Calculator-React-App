@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { GetCookie } from '../helpers/GetCookie';
 import { useState, useEffect } from 'react';
 
 export const SwitchTheme = () => {
@@ -13,11 +14,11 @@ export const SwitchTheme = () => {
 		const newTheme = !isSwitched;
 		setIsSwitched(newTheme);
 
-		localStorage.setItem('whatTheme', String(newTheme));
+		document.cookie = `whatTheme=${newTheme};`;
 	};
 
 	useEffect(() => {
-		const whatTheme = localStorage.getItem('whatTheme');
+		const whatTheme = GetCookie('whatTheme');
 		const shouldSwitch = whatTheme === 'true';
 
 		htmlEl.classList.toggle('light', shouldSwitch);
