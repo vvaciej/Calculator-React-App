@@ -5,92 +5,31 @@ export function MainCalc() {
 
 	const handleBtnFunction = btnValue => {
 		switch (btnValue) {
-			case 'del':
+			case 'Backspace':
 				setInputValue(prevState => String(prevState).slice(0, -1));
 				break;
 			case 'reset':
 				setInputValue('');
 				break;
-			case '=':
+			case 'Enter':
 				evalResults();
 				break;
 			default:
 				setInputValue(prevState => prevState + btnValue);
 				break;
 		}
+
+		lightOnKey(btnValue);
 	};
 
-	useEffect(() => {
-		const handleBtnFunctionOnKeydown = e => {
+	const handleBtnFunctionOnKeydown = e => {
+		const isDigitOrSpecial = /[0-9x\/%+\-.]/.test(e.key);
+
+		if (isDigitOrSpecial) {
+			setInputValue(prevState => prevState + e.key);
+			lightOnKey(e.key);
+		} else {
 			switch (e.key) {
-				case '0':
-					setInputValue(prevState => prevState + '0');
-					lightOnKey('0');
-					break;
-				case '1':
-					setInputValue(prevState => prevState + '1');
-					lightOnKey('1');
-					break;
-				case '2':
-					setInputValue(prevState => prevState + '2');
-					lightOnKey('2');
-					break;
-				case '3':
-					setInputValue(prevState => prevState + '3');
-					lightOnKey('3');
-					break;
-				case '4':
-					setInputValue(prevState => prevState + '4');
-					lightOnKey('4');
-					break;
-				case '5':
-					setInputValue(prevState => prevState + '5');
-					lightOnKey('5');
-					break;
-				case '6':
-					setInputValue(prevState => prevState + '6');
-					lightOnKey('6');
-					break;
-				case '7':
-					setInputValue(prevState => prevState + '7');
-					lightOnKey('7');
-					break;
-				case '8':
-					setInputValue(prevState => prevState + '8');
-					lightOnKey('8');
-					break;
-				case '9':
-					setInputValue(prevState => prevState + '9');
-					lightOnKey('9');
-					break;
-				case 'x':
-					setInputValue(prevState => prevState + 'x');
-					lightOnKey('x');
-					break;
-				case '*':
-					setInputValue(prevState => prevState + 'x');
-					lightOnKey('x');
-					break;
-				case '/':
-					setInputValue(prevState => prevState + '/');
-					lightOnKey('/');
-					break;
-				case '%':
-					setInputValue(prevState => prevState + '%');
-					lightOnKey('%');
-					break;
-				case '+':
-					setInputValue(prevState => prevState + '+');
-					lightOnKey('+');
-					break;
-				case '.':
-					setInputValue(prevState => prevState + '.');
-					lightOnKey('.');
-					break;
-				case '-':
-					setInputValue(prevState => prevState + '-');
-					lightOnKey('-');
-					break;
 				case 'Enter':
 					evalResults();
 					lightOnKey('Enter');
@@ -103,17 +42,13 @@ export function MainCalc() {
 					setInputValue('');
 					lightOnKey('Reset');
 					break;
-				default:
+				case '*':
+					setInputValue(prevState => prevState + 'x');
+					lightOnKey('x');
 					break;
 			}
-		};
-
-		document.addEventListener('keydown', handleBtnFunctionOnKeydown);
-
-		return () => {
-			document.removeEventListener('keydown', handleBtnFunctionOnKeydown);
-		};
-	});
+		}
+	};
 
 	const lightOnKey = key => {
 		const allBtns = document.querySelectorAll('.calc-btn');
@@ -143,9 +78,20 @@ export function MainCalc() {
 				setInputValue(isMoreDecimals ? result.toFixed(2) : result);
 			}
 		} catch (error) {
-			console.error(error);
-			setInputValue('');
+			handleCalcError();
 		}
+	};
+
+  const handleCalcError = () => {
+		const inputEl = document.querySelector('.display-calc-input');
+
+		setInputValue('Error');
+		inputEl.style.color = 'var(--reds)';
+
+		setTimeout(() => {
+			setInputValue('');
+			inputEl.style.color = '';
+		}, 500);
 	};
 
 	useEffect(() => {
@@ -153,6 +99,14 @@ export function MainCalc() {
 
 		inputEl.value = inputValue;
 	}, [inputValue]);
+
+	useEffect(() => {
+		document.addEventListener('keydown', handleBtnFunctionOnKeydown);
+
+		return () => {
+			document.removeEventListener('keydown', handleBtnFunctionOnKeydown);
+		}
+	})
 
 	return (
 		<>
@@ -210,17 +164,9 @@ export function MainCalc() {
 			<button className='calc-btn' data-value='.' onClick={() => handleBtnFunction('.')}>
 				.
 			</button>
-			<button className='calc-btn reds' data-value='Enter' onClick={() => handleBtnFunction('=')}>
+			<button className='calc-btn reds' data-value='Enter' onClick={() => handleBtnFunction('Enter')}>
 				=
 			</button>
-		</>
-	);
-}
-
-export function DisplayCalc() {
-	return (
-		<>
-			<input type='text' className='display-calc-input cursor-default' maxLength={11} readOnly />
 		</>
 	);
 }
