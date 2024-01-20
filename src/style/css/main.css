@@ -57,6 +57,7 @@ body {
 }
 
 .calc-wrapper {
+  position: relative;
   height: 700px;
   width: 400px;
   border-radius: 22px;
@@ -64,6 +65,7 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: 0px 5px 30px var(--box-shadow-calc);
+  right: 400px;
 }
 @media (max-width: 480px) {
   .calc-wrapper {
@@ -162,6 +164,11 @@ body {
 .main-calc .calc-btn:hover {
   background-color: var(--light-mode-key);
   transition: 0.2s ease;
+}
+@media (max-width: 480px) {
+  .main-calc .calc-btn:hover {
+    background-color: transparent;
+  }
 }
 .main-calc .calc-btn.greens {
   color: var(--greens);

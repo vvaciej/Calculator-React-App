@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 
 export function MainCalc() {
 	const allBtns = document.querySelectorAll('.calc-btn');
@@ -25,8 +25,9 @@ export function MainCalc() {
 
 	const handleBtnFunctionOnKeydown = e => {
 		const isDigitOrSpecial = /[0-9x\/%+\-.]/.test(e.key);
+		const isFunctionKey = /^F[1-9]|F1[0-2]$/.test(e.key);
 
-		if (isDigitOrSpecial) {
+		if (isDigitOrSpecial && !isFunctionKey) {
 			setInputValue(prevState => prevState + e.key);
 			lightOnKey(e.key);
 		} else {
@@ -46,6 +47,8 @@ export function MainCalc() {
 				case '*':
 					setInputValue(prevState => prevState + 'x');
 					lightOnKey('x');
+					break;
+				default:
 					break;
 			}
 		}
@@ -95,7 +98,7 @@ export function MainCalc() {
 
 			inputEl.style.color = '';
 			document.removeEventListener('keydown', clearError);
-			
+
 			allBtns.forEach(btn => {
 				btn.removeEventListener('click', clearError);
 			});
@@ -115,11 +118,24 @@ export function MainCalc() {
 
 	useEffect(() => {
 		document.addEventListener('keydown', handleBtnFunctionOnKeydown);
-
+		
 		return () => {
 			document.removeEventListener('keydown', handleBtnFunctionOnKeydown);
 		}
 	})
+
+	useLayoutEffect(() => {
+		const calcWrapper = document.querySelector('.calc-wrapper');
+
+    const smoothCalcAppearOnLoad = setTimeout(() => {
+			calcWrapper.style.right = '0px';
+			calcWrapper.style.transition = 'right .2s ease-out';
+		}, 0);
+
+		return () => {
+			clearTimeout(smoothCalcAppearOnLoad);
+		};
+	}, [])
 
 	return (
 		<>

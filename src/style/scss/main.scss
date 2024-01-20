@@ -72,6 +72,7 @@ body {
 }
 
 .calc-wrapper {
+  position: relative;
   height: 700px;
   width: 400px;
   border-radius: 22px;
@@ -79,6 +80,7 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: 0px 5px 30px var(--box-shadow-calc);
+  right: 400px;
   @include mobile {
     width: 92%;
     height: 95dvh;
@@ -171,6 +173,9 @@ body {
     &:hover {
       background-color: var(--light-mode-key);
       transition: .2s ease;
+      @include mobile {
+        background-color: transparent;
+      }
     }
     &.greens {
       color: var(--greens);
