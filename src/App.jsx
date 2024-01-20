@@ -1,6 +1,6 @@
 import { SwitchTheme } from './components/SwitchTheme';
 import { MainCalc } from './components/CalcBtnsContainer';
-import { GetCookie } from './components/GetCookie';
+import CookieConsent from 'react-cookie-consent';
 import './style/css/main.css';
 
 export default function App() {
@@ -15,7 +15,9 @@ export default function App() {
 					<MainCalc />
 				</main>
 			</div>
-			<GetCookie />
+			<CookieConsent expires={365}>
+				This site uses cookies. See our <a href='#'>privacy policy</a> for more.
+			</CookieConsent>
 		</>
 	);
 }
