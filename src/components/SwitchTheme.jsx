@@ -9,10 +9,11 @@ export const SwitchTheme = () => {
 	const isCookiesAccepted = localStorage.getItem('isAccepted');
 
 	const switchTheme = () => {
-		htmlEl.classList.toggle('dark', !isSwitched);
-		htmlEl.classList.toggle('light', isSwitched);
-		
 		const newTheme = !isSwitched;
+
+		htmlEl.classList.toggle('dark', !newTheme);
+		htmlEl.classList.toggle('light', newTheme);
+		
 		setIsSwitched(newTheme);
 
 		if (isCookiesAccepted === 'false') return;	
@@ -21,7 +22,11 @@ export const SwitchTheme = () => {
 	};
 
   useEffect(() => {
-		if (isCookiesAccepted === 'false') return;
+		if (isCookiesAccepted === 'false') {
+			htmlEl.classList.remove('light');
+			htmlEl.classList.add('dark');
+			return;
+		};
 
 		const whatTheme = getCookie('whatTheme');
 		const shouldSwitch = whatTheme === 'true';
