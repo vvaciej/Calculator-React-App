@@ -189,37 +189,3 @@ body {
     }
   }
 }
-
-.cookies-div {
-  width: max-content;
-  height: max-content;
-  border-radius: 20px;
-  position: absolute;
-  bottom: 30px;
-  right: 100px;
-  background-color: var(--cookies-div);
-  padding: 20px;
-  font-size: 15px;
-  &:not(.active) {
-    display: none;
-  }
-  h1 {
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  span a {
-    color: var(--reds);
-  }
-  section {
-    margin-top: 18px;
-    display: flex;
-    justify-content: space-between;
-    button {
-      background-color: var(--reds);
-      border-radius: 5px;
-      color: white;
-      padding: 5px 8px;
-    }
-  }
-}
