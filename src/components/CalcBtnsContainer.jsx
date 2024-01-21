@@ -1,7 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { buttonData } from '../data/btns';
 
-export function MainCalc() {
-	const allBtns = document.querySelectorAll('.calc-btn');
+export function MainCalc({ inputEl }) {
+  const allBtns = useRef([]);
+
+	useEffect(() => {
+		allBtns.current = Array.from(document.querySelectorAll('.calc-btn'));
+	}, []);
+
 	const [inputValue, setInputValue] = useState('');
 
 	const handleBtnFunction = btnValue => {
@@ -9,7 +15,7 @@ export function MainCalc() {
 			case 'Backspace':
 				setInputValue(prevState => String(prevState).slice(0, -1));
 				break;
-			case 'reset':
+			case 'Reset':
 				setInputValue('');
 				break;
 			case 'Enter':
@@ -48,8 +54,6 @@ export function MainCalc() {
 					setInputValue(prevState => prevState + 'x');
 					lightOnKey('x');
 					break;
-				default:
-					break;
 			}
 		}
 
@@ -59,7 +63,7 @@ export function MainCalc() {
 	};
 
 	const lightOnKey = key => {
-		allBtns.forEach(btn => {
+		allBtns.current.forEach(btn => {
 			const btnValue = btn.getAttribute('data-value');
 
 			if (btnValue === key) {
@@ -89,10 +93,8 @@ export function MainCalc() {
 	};
 
 	const handleCalcError = () => {
-		const inputEl = document.querySelector('.display-calc-input');
-
 		setInputValue('Error');
-		inputEl.style.color = 'var(--reds)';
+		inputEl.current.style.color = 'var(--reds)';
 
 		const clearError = e => {
 			const isDigitOrSpecial = /[0-9x\/%+\-.]/.test(e.key);
@@ -100,24 +102,22 @@ export function MainCalc() {
 			if (isDigitOrSpecial) setInputValue(e.key);
 			else setInputValue('');
 
-			inputEl.style.color = '';
+			inputEl.current.style.color = '';
 			document.removeEventListener('keydown', clearError);
 
-			allBtns.forEach(btn => {
+			allBtns.current.forEach(btn => {
 				btn.removeEventListener('click', clearError);
 			});
 		};
 
-		allBtns.forEach(btn => {
+		allBtns.current.forEach(btn => {
 			btn.addEventListener('click', clearError);
 		});
 		document.addEventListener('keydown', clearError);
 	};
 
 	useEffect(() => {
-		const inputEl = document.querySelector('.display-calc-input');
-
-		inputEl.value = inputValue;
+		inputEl.current.value = inputValue;
 	}, [inputValue]);
 
 	useEffect(() => {
@@ -130,66 +130,15 @@ export function MainCalc() {
 
 	return (
 		<>
-			<button
-				className='calc-btn greens'
-				data-value='Backspace'
-				onClick={() => handleBtnFunction('Backspace')}>
-				←
-			</button>
-			<button className='calc-btn greens' data-value='Reset' onClick={() => handleBtnFunction('reset')}>
-				C
-			</button>
-			<button className='calc-btn reds' data-value='/' onClick={() => handleBtnFunction('/')}>
-				/
-			</button>
-			<button className='calc-btn reds' data-value='x' onClick={() => handleBtnFunction('x')}>
-				x
-			</button>
-			<button className='calc-btn' data-value='7' onClick={() => handleBtnFunction('7')}>
-				7
-			</button>
-			<button className='calc-btn' data-value='8' onClick={() => handleBtnFunction('8')}>
-				8
-			</button>
-			<button className='calc-btn' data-value='9' onClick={() => handleBtnFunction('9')}>
-				9
-			</button>
-			<button className='calc-btn reds' data-value='-' onClick={() => handleBtnFunction('-')}>
-				-
-			</button>
-			<button className='calc-btn' data-value='4' onClick={() => handleBtnFunction('4')}>
-				4
-			</button>
-			<button className='calc-btn' data-value='5' onClick={() => handleBtnFunction('5')}>
-				5
-			</button>
-			<button className='calc-btn' data-value='6' onClick={() => handleBtnFunction('6')}>
-				6
-			</button>
-			<button className='calc-btn reds' data-value='+' onClick={() => handleBtnFunction('+')}>
-				+
-			</button>
-			<button className='calc-btn' data-value='1' onClick={() => handleBtnFunction('1')}>
-				1
-			</button>
-			<button className='calc-btn' data-value='2' onClick={() => handleBtnFunction('2')}>
-				2
-			</button>
-			<button className='calc-btn' data-value='3' onClick={() => handleBtnFunction('3')}>
-				3
-			</button>
-			<button className='calc-btn reds' data-value='%' onClick={() => handleBtnFunction('%')}>
-				%
-			</button>
-			<button className='calc-btn' data-value='0' onClick={() => handleBtnFunction('0')}>
-				0
-			</button>
-			<button className='calc-btn' data-value='.' onClick={() => handleBtnFunction('.')}>
-				.
-			</button>
-			<button className='calc-btn reds' data-value='Enter' onClick={() => handleBtnFunction('Enter')}>
-				=
-			</button>
+			{buttonData.map((button, index) => (
+				<button
+					key={index}
+					className={button.className}
+					data-value={button.dataValue}
+					onClick={() => handleBtnFunction(button.dataValue)}>
+					{button.content}
+				</button>
+			))}
 		</>
 	);
 }
