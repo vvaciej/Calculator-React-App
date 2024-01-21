@@ -179,38 +179,4 @@ body {
 }
 .main-calc .calc-btn[data-value="0"] {
   grid-column: span 2;
-}
-
-.cookies-div {
-  width: max-content;
-  height: max-content;
-  border-radius: 20px;
-  position: absolute;
-  bottom: 30px;
-  right: 100px;
-  background-color: var(--cookies-div);
-  padding: 20px;
-  font-size: 15px;
-}
-.cookies-div:not(.active) {
-  display: none;
-}
-.cookies-div h1 {
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-.cookies-div span a {
-  color: var(--reds);
-}
-.cookies-div section {
-  margin-top: 18px;
-  display: flex;
-  justify-content: space-between;
-}
-.cookies-div section button {
-  background-color: var(--reds);
-  border-radius: 5px;
-  color: white;
-  padding: 5px 8px;
 }/*# sourceMappingURL=main.css.map */
