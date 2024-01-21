@@ -3,10 +3,7 @@ import { buttonData } from '../data/btns';
 
 export function MainCalc({ inputEl }) {
   const allBtns = useRef([]);
-
-	useEffect(() => {
-		allBtns.current = Array.from(document.querySelectorAll('.calc-btn'));
-	}, []);
+	allBtns.current = Array.from(document.querySelectorAll('.calc-btn'));
 
 	const [inputValue, setInputValue] = useState('');
 
