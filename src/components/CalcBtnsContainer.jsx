@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 export function MainCalc() {
 	const allBtns = document.querySelectorAll('.calc-btn');
@@ -114,7 +114,7 @@ export function MainCalc() {
 		document.addEventListener('keydown', clearError);
 	};
 
-	useMemo(() => {
+	useEffect(() => {
 		const inputEl = document.querySelector('.display-calc-input');
 
 		inputEl.value = inputValue;
